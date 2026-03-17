@@ -17,14 +17,3 @@ dotnet test tests/Api.UnitTests/Api.UnitTests.csproj --no-build --configuration 
 dotnet test tests/Api.IntegrationTests/Api.IntegrationTests.csproj --no-build --configuration Release
 ```
 
-Why this helps
-- Automated builds catch compile-time errors early
-- Unit tests validate business logic in isolation
-- Integration tests validate the HTTP surface and request pipeline
-
-Suggested next steps
-1. Add code coverage reporting (Coverlet + upload to Codecov)
-2. Upgrade project to a supported .NET (7/8) and update CI image
-3. Protect `main` branch and require CI status checks
-4. Add README badges / documentation for contributors (done)
-
