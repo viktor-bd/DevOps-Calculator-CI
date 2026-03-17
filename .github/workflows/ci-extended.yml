@@ -22,9 +22,12 @@ jobs:
       - name: Restore
         run: dotnet restore
 
+      - name: Install dotnet tools
+        run: dotnet tool restore
+
       - name: Lint (dotnet format check)
         run: dotnet tool run dotnet-format --verify-no-changes
-        continue-on-error: true
+        continue-on-error: false
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
