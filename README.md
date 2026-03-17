@@ -28,4 +28,3 @@ Suggested next steps
 3. Protect `main` branch and require CI status checks
 4. Add README badges / documentation for contributors (done)
 
-If you want, I can implement any of the suggested next steps — tell me which one to start with.
