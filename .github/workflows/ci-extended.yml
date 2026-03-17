@@ -22,12 +22,14 @@ jobs:
       - name: Restore
         run: dotnet restore
 
-      - name: Install dotnet tools
-        run: dotnet tool restore
-
-      - name: Lint (dotnet format check)
-        # Use '--' to forward arguments to the tool (otherwise dotnet treats them as its own)
-        run: dotnet tool run dotnet-format -- --verify-no-changes
+      - name: Install dotnet-format and run lint
+        run: |
+          # Install dotnet-format globally and ensure the tool path is available
+          dotnet tool install -g dotnet-format || true
+          export PATH="$PATH:$HOME/.dotnet/tools"
+          # Run formatter check; exit non-zero if changes are required
+          dotnet-format --verify-no-changes
+        shell: bash
         continue-on-error: false
 
       - name: Build
