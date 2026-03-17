@@ -1,0 +1,37 @@
+# .gitignore for minimal ASP.NET Core project
+
+# Build outputs
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Rider
+.idea/
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+coverage/
+
+# NuGet
+*.nupkg
+packages/
+.nuget/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary
+*.tmp
