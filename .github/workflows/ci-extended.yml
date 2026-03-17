@@ -22,13 +22,11 @@ jobs:
       - name: Restore
         run: dotnet restore
 
-      - name: Install dotnet-format and run lint
+      - name: Restore and run dotnet-format from local tool manifest
         run: |
-          # Install dotnet-format globally and ensure the tool path is available
-          dotnet tool install -g dotnet-format || true
-          export PATH="$PATH:$HOME/.dotnet/tools"
-          # Run formatter check; exit non-zero if changes are required
-          dotnet-format --verify-no-changes
+          # Restore local tools from manifest and run dotnet-format via 'dotnet tool run'
+          dotnet tool restore
+          dotnet tool run dotnet-format -- --verify-no-changes
         shell: bash
         continue-on-error: false
 
