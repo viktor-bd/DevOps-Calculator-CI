@@ -26,7 +26,8 @@ jobs:
         run: dotnet tool restore
 
       - name: Lint (dotnet format check)
-        run: dotnet tool run dotnet-format --verify-no-changes
+        # Use '--' to forward arguments to the tool (otherwise dotnet treats them as its own)
+        run: dotnet tool run dotnet-format -- --verify-no-changes
         continue-on-error: false
 
       - name: Build
