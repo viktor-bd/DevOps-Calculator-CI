@@ -24,9 +24,9 @@ jobs:
 
       - name: Restore and run dotnet-format from local tool manifest
         run: |
-          # Restore local tools from manifest and run dotnet-format via 'dotnet tool run'
+          # Restore local tools from manifest and run dotnet-format against the solution
           dotnet tool restore
-          dotnet tool run dotnet-format --verify-no-changes
+          dotnet tool run dotnet-format DevOps_Exam.sln --verify-no-changes
         shell: bash
         continue-on-error: false
 
