@@ -1,0 +1,70 @@
+name: CI Extended
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  lint-build-test-coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Restore and run dotnet-format from local tool manifest
+        run: |
+          # Restore local tools from manifest and run dotnet-format against the solution
+          dotnet tool restore
+          # older versions of dotnet-format use '--check' instead of '--verify-no-changes'
+          dotnet tool run dotnet-format DevOps_Exam.sln --check
+        shell: bash
+        continue-on-error: false
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Run unit tests with coverage
+        run: |
+          dotnet test tests/Api.UnitTests/Api.UnitTests.csproj --no-build --configuration Release --collect:"XPlat Code Coverage" --logger "trx;LogFileName=unit-tests.trx"
+
+      - name: Publish coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-unit
+          path: |
+            **/coverage.cobertura.xml
+            **/coverage.info
+            **/TestResults/*.trx
+
+  codeql:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: csharp
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
