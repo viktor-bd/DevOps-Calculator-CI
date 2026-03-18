@@ -26,7 +26,7 @@ jobs:
         run: |
           # Restore local tools from manifest and run dotnet-format via 'dotnet tool run'
           dotnet tool restore
-          dotnet tool run dotnet-format -- --verify-no-changes
+          dotnet tool run dotnet-format --verify-no-changes
         shell: bash
         continue-on-error: false
 
