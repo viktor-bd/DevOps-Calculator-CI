@@ -17,3 +17,4 @@ dotnet test tests/Api.UnitTests/Api.UnitTests.csproj --no-build --configuration 
 dotnet test tests/Api.IntegrationTests/Api.IntegrationTests.csproj --no-build --configuration Release
 ```
 
+Test pipeline.
